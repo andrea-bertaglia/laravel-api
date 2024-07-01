@@ -25,12 +25,17 @@ class ProjectController extends Controller
         // dd($project);
         $project = Project::with('type', 'technologies')->where('slug', $project)->first();
 
-        $data = [
-            'results' => $project,
-            'success' => true
-        ];
-        // dd($data);
-
-        return response()->json($data);
+        if (!$project) {
+            return response()->json([
+                'success' => false
+            ], 404);
+        } else {
+            $data = [
+                'results' => $project,
+                'success' => true
+            ];
+            // dd($data);
+            return response()->json($data);
+        }
     }
 }
