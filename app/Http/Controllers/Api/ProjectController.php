@@ -19,4 +19,18 @@ class ProjectController extends Controller
 
         return response()->json($data);
     }
+
+    public function show(string $project)
+    {
+        // dd($project);
+        $project = Project::with('type', 'technologies')->where('slug', $project)->first();
+
+        $data = [
+            'results' => $project,
+            'success' => true
+        ];
+        // dd($data);
+
+        return response()->json($data);
+    }
 }
